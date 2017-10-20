@@ -23,7 +23,7 @@ public class Table extends Connect {
 					System.out.println(rs.getString("COORDINATE_RIVERS_ID") + "," + rs.getString("LATITUDE") + "," + rs.getString("LONGTITUDE") + "," + rs.getString("REGION") + "," + rs.getString("DISTRICT") + "," + rs.getString("REGION") + "," + rs.getString("COUNTRY"));
 					System.out.println();
 				}
-				return array;	
+				//return array;	
 	}
 				
 	
