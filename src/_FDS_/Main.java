@@ -1,18 +1,24 @@
 package _FDS_;
 
+import java.io.IOException;
 import java.sql.SQLException;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
 
 public class Main {
 
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws SQLException, JsonGenerationException, JsonMappingException, IOException {
 		
 		Table tc = new Table();
 		
 		tc.getDataLocation();
 		tc.getDataSensor();
-		tc.getDataTotal_Rain_Fall();
-		tc.getDataWater_Level();
-		tc.getDataWater_Speed();
+		//tc.getDataTotal_Rain_Fall();
+		//tc.getDataWater_Level();
+		//tc.getDataWater_Speed();
+		
+		
 	}
 }
 	
