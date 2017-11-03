@@ -10,13 +10,17 @@ public class Main {
 
 	public static void main(String[] args) throws SQLException, JsonGenerationException, JsonMappingException, IOException {
 		
-		Table tc = new Table();
+		Get tc = new Get();
+		Insert rd = new Insert();
 		
 		tc.getDataLocation();
 		tc.getDataSensor();
-		//tc.getDataTotal_Rain_Fall();
-		//tc.getDataWater_Level();
-		//tc.getDataWater_Speed();
+		tc.getDataTotal_Rain_Fall();
+		tc.getDataWater_Level();
+		tc.getDataWater_Speed();
+		tc.getDataWind_Direction();
+		
+		rd.readFile();
 		
 		
 	}

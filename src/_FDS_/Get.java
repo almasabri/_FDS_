@@ -4,18 +4,21 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
-public class Table extends Connect {
-
+public class Get extends Connect {
+	
 	public String getDataLocation() throws SQLException, JsonGenerationException, JsonMappingException, IOException {
 		
 		Connect con1 = new Connect();
 		Connection con = con1.initData();
 		//ArrayList<String> array = new ArrayList<String>();
 		ObjectMapper mapper = new ObjectMapper();
+		//mapper.
 		
 		String sqlL = "SELECT * FROM location";
 		//String jsonString;
@@ -28,9 +31,10 @@ public class Table extends Connect {
 					//Array
 					//array.add(rs.getString("COORDINATE_RIVERS_ID") + "," + rs.getString("LATITUDE") + "," + rs.getString("LONGTITUDE") + "," + rs.getString("REGION") + "," + rs.getString("DISTRICT") + "," + rs.getString("REGION") + "," + rs.getString("COUNTRY"));
 					
-					System.out.println(rs.getString("COORDINATE_RIVERS_ID") + "," + rs.getString("LATITUDE") + "," + rs.getString("LONGTITUDE") + "," + rs.getString("REGION") + "," + rs.getString("DISTRICT") + "," + rs.getString("REGION") + "," + rs.getString("COUNTRY"));
+					System.out.println( "Tabel Location: " + rs.getString("COORDINATE_RIVERS_ID") + "," + rs.getString("LATITUDE") + "," + rs.getString("LONGTITUDE") + "," + rs.getString("REGION") + "," + rs.getString("DISTRICT") + "," + rs.getString("REGION") + "," + rs.getString("COUNTRY"));
 					
 					//JSON
+					
 					String jsonString = mapper.writeValueAsString(rs.getString("COORDINATE_RIVERS_ID") + "," + rs.getString("LATITUDE") + "," + rs.getString("LONGTITUDE") + "," + rs.getString("REGION") + "," + rs.getString("DISTRICT") + "," + rs.getString("REGION") + "," + rs.getString("COUNTRY"));
 					
 					System.out.println("In JSON:" + jsonString);
@@ -44,6 +48,13 @@ public class Table extends Connect {
 					
 					
 				}
+				/*i.e. JSONObject obj =new JSONObject()
+						obj.putString("abc","some string");
+						then bila export call obj.toString()
+						dia akan generate 
+						{
+						    "abc":"some string"
+						}*/
 
 				
 					//for(int i=0 ; i<array.size(); i++) {
@@ -53,20 +64,9 @@ public class Table extends Connect {
 						//jsonString = mapper.writeValueAsString(array.get(i));
 						//jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(array.get(i));
 						//System.out.println("In JSON:" + jsonString);
-						
-						
-						//jsonString = mapper.writeValueAsString(rs.getString("COORDINATE_RIVERS_ID") + "," + rs.getString("LATITUDE") + "," + rs.getString("LONGTITUDE") + "," + rs.getString("REGION") + "," + rs.getString("DISTRICT") + "," + rs.getString("REGION") + "," + rs.getString("COUNTRY"));
-						
-						//System.out.println("In JSON:" + jsonString);
-						
-						//jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rs.getString("COORDINATE_RIVERS_ID") + "," + rs.getString("LATITUDE") + "," + rs.getString("LONGTITUDE") + "," + rs.getString("REGION") + "," + rs.getString("DISTRICT") + "," + rs.getString("REGION") + "," + rs.getString("COUNTRY"));
-						
-						//System.out.println("In JSON2:" + jsonString);
 					
 						System.out.println();
 				//}
-				
-				//System.out.println("In Array:" + array);	
 				
 				System.out.println("\n\n");
 				//return array;	
@@ -92,7 +92,7 @@ public class Table extends Connect {
 				
 				while (rsa.next()) {
 					//array1.add(rsa.getString("MICRO_CONTROL_ID") + "," + rsa.getString("COORDINATE_RIVERS_ID") + "," + rsa.getString("BATTERY_LEVEL") + "," + rsa.getString("ALERT_STATUS"));
-					System.out.println(rsa.getString("MICRO_CONTROL_ID") + "," + rsa.getString("COORDINATE_RIVERS_ID") + "," + rsa.getString("BATTERY_LEVEL") + "," + rsa.getString("ALERT_STATUS"));
+					System.out.println("Table Sensor: " + rsa.getString("MICRO_CONTROL_ID") + "," + rsa.getString("COORDINATE_RIVERS_ID") + "," + rsa.getString("BATTERY_LEVEL") + "," + rsa.getString("ALERT_STATUS"));
 					System.out.println();
 				}
 				
@@ -113,22 +113,18 @@ public class Table extends Connect {
 		//ArrayList<String> array2 = new ArrayList<String>();
 		
 			String sqlTRF = "SELECT * FROM total_rain_fall";
-		
+			
 				Statement sb = con.createStatement();
 				ResultSet rsb = sb.executeQuery(sqlTRF);
-				
-				
+			
 				while (rsb.next()) {
+					
 					//array2.add(rsb.getString("MICRO_CONTROL_ID") + "," + rsb.getString("TRF_SENSOR") + "," + rsb.getString("TIMESTAMP") + "," + rsb.getString("VALUES_TRF"));
-					System.out.println(rsb.getString("MICRO_CONTROL_ID") + "," + rsb.getString("TRF_SENSOR") + "," + rsb.getString("TIMESTAMP") + "," + rsb.getString("VALUES_TRF"));
+					System.out.println( "Table Total Rain Fall: " + rsb.getString("MICRO_CONTROL_ID") + "," + rsb.getString("TRF_SENSOR") + "," + rsb.getString("VALUES_TRF") + "," + " Timestamp: " + rsb.getTimestamp( "TIMESTAMP")); //rsb.String pun bleh for timestamp
 				}
 				
-				/*for(int i=0 ; i<array2.size(); i++) {
-					array2.get(i);
-				}
-				System.out.println(array2);	*/
+				
 				System.out.println("\n\n");
-				//return array2;
 				return sqlTRF;
 	}
 	
@@ -147,13 +143,11 @@ public class Table extends Connect {
 				
 				while (rsc.next()) {
 					//array3.add(rsc.getString("MICRO_CONTROL_ID") + "," + rsc.getString("WTL_SENSOR") + "," + rsc.getString("TIMESTAMP") + "," + rsc.getString("VALUES_WTL"));
-					System.out.println(rsc.getString("MICRO_CONTROL_ID") + "," + rsc.getString("WTL_SENSOR") + "," + rsc.getString("TIMESTAMP") + "," + rsc.getString("VALUES_WTL"));
+					System.out.println( "Table Water Lavel " + rsc.getString("MICRO_CONTROL_ID") + "," + rsc.getString("WTL_SENSOR") + "," + rsc.getTimestamp("TIMESTAMP") + "," + rsc.getString("VALUES_WTL"));
 					System.out.println();
 				}
-				/*for(int i=0 ; i<array3.size(); i++) {
-					array3.get(i);
-				}*/
-				//return array3;
+				
+				System.out.println("\n\n");
 				return sqlWL;
 				
 	}
@@ -173,13 +167,11 @@ public class Table extends Connect {
 				
 				while (rsd.next()) {
 					//array4.add(rsd.getString("MICRO_CONTROL_ID") + "," + rsd.getString("WTS_SENSOR") + "," + rsd.getString("TIMESTAMP") + "," + rsd.getString("VALUES_WTS"));
-					System.out.println(rsd.getString("MICRO_CONTROL_ID") + "," + rsd.getString("WTS_SENSOR") + "," + rsd.getString("TIMESTAMP") + "," + rsd.getString("VALUES_WTS"));
+					System.out.println( "Table Water Speed: " + rsd.getString("MICRO_CONTROL_ID") + "," + rsd.getString("WTS_SENSOR") + "," + rsd.getTimestamp("TIMESTAMP") + "," + rsd.getString("VALUES_WTS"));
 					System.out.println();
 				}
-				/*for(int i=0 ; i<array4.size(); i++) {
-					array4.get(i);
-				}*/
-				//return array4;
+				
+				System.out.println("\n\n");
 				return sqlWS;
 	}
 	
@@ -197,13 +189,9 @@ public class Table extends Connect {
 				
 				while (rse.next()) {
 					//array5.add(rse.getString("MICRO_CONTROL_ID") + "," + rse.getString("WDN_SENSOR") + "," + rse.getString("TIMESTAMP") + "," + rse.getString("VALUES_WDN"));
-					System.out.println(rse.getString("MICRO_CONTROL_ID") + "," + rse.getString("WDN_SENSOR") + "," + rse.getString("TIMESTAMP") + "," + rse.getString("VALUES_WDN"));
+					System.out.println(("Table Wind Direction: " + rse.getString("MICRO_CONTROL_ID") + "," + rse.getString("WDN_SENSOR") + "," + rse.getTimestamp("TIMESTAMP") + "," + rse.getString("VALUES_WDN")));
 					System.out.println();
 				}
-				/*for(int i=0 ; i<array5.size(); i++) {
-					array5.get(i);
-				}*/
-				//return array5;
 				return sqlWD;
 	}
 	
